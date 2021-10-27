@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.10)
+project(cloudflareDDNS)
+include_directories(headers)
+if(NOT MSVC)
+	add_definitions(-DLINUX)
+else()
+	add_definitions(-DWINDOWS)
+endif()
+file(GLOB SOURCES "cpp/*.cpp")
+file(GLOB_RECURSE data "resources/*")
+find_package(CURL REQUIRED)
+find_package (Threads)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+file(COPY ${data} DESTINATION resources)
+add_compile_options(-Wall -Wextra -pedantic -Werror)
+add_executable(updater ${SOURCES} ${data})
+target_link_libraries(updater curl)
+target_link_libraries (updater Threads::Threads)
+set_target_properties(updater PROPERTIES
+  MACOSX_BUNDLE TRUE
+  MACOSX_FRAMEWORK_IDENTIFIER org.cmake.updater
+  RESOURCE "${data}")
