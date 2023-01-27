@@ -1,4 +1,4 @@
-# *** CLOUDFLARE DYNAMIC DNS UPDATER *** 
+# CLOUDFLARE DYNAMIC DNS UPDATER
 ## Version 1.0.0
 
 ### Description
